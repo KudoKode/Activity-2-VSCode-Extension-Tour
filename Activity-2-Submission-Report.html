@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activity 2: VS Code Extension Tour | Submission Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1120;
+      --card-bg: #131c31;
+      --border: #1e293b;
+      --accent: #38bdf8;
+      --accent-green: #10b981;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 2.5rem 1.5rem;
+    }
+    .container { max-width: 950px; margin: 0 auto; }
+    header {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 2.25rem;
+      margin-bottom: 2rem;
+    }
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      display: inline-block;
+      margin-right: 0.5rem;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+    }
+    .badge-blue { background: rgba(56, 189, 248, 0.15); color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge-green { background: rgba(16, 185, 129, 0.15); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.3); }
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, #fff, #93c5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle { color: var(--text-muted); font-size: 1rem; margin-bottom: 1.5rem; }
+    .meta-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 1rem 1.25rem;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .meta-item .label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
+    .meta-item .value { font-weight: 600; color: #fff; font-size: 0.95rem; }
+    .section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .section-title span { color: var(--accent); }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { padding: 0.85rem 1rem; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+    th { background: rgba(15, 23, 42, 0.6); color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem; }
+    code { font-family: var(--font-mono); color: var(--accent); background: rgba(56, 189, 248, 0.1); padding: 0.1rem 0.4rem; border-radius: 0.25rem; }
+    .qa-box {
+      background: rgba(15, 23, 42, 0.5);
+      border-left: 4px solid var(--accent);
+      padding: 1.25rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+      margin-bottom: 1.25rem;
+    }
+    .qa-title { font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
+    .qa-desc { font-size: 0.95rem; color: #cbd5e1; }
+    .print-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--accent);
+      color: #090d16;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.5);
+      transition: all 0.2s;
+    }
+    .print-btn:hover { background: #7dd3fc; }
+    @media print {
+      body { background: white; color: black; padding: 0; }
+      .section, header, .meta-box, .qa-box { background: white; color: black; border-color: #ddd; }
+      h1, .section-title { color: black !important; -webkit-text-fill-color: black !important; }
+      .print-btn { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge badge-blue">Activity 2 Submission</div>
+      <div class="badge badge-green">Portfolio Building B25CS0311</div>
+      <h1>VS Code Extension Tour & Ecosystem Evaluation</h1>
+      <p class="subtitle">Hands-on comparison of Python, Java, Prettier, GitLens, and Live Share extensions</p>
+      <div class="meta-box">
+        <div class="meta-item"><div class="label">Student Name</div><div class="value">Abhishek Maurya</div></div>
+        <div class="meta-item"><div class="label">SRN</div><div class="value">R25EJ004 (CSIT - 3rd Sem)</div></div>
+        <div class="meta-item"><div class="label">Institution</div><div class="value">REVA University, Bengaluru</div></div>
+        <div class="meta-item"><div class="label">Pair Partner</div><div class="value">Arun H Kalamuddi (R25EJ013)</div></div>
+      </div>
+    </header>
+
+    <!-- SECTION 1: INSTALLED SUITE -->
+    <div class="section">
+      <div class="section-title"><span>01.</span> Installed Extension Verification</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Extension</th>
+            <th>Publisher</th>
+            <th>Domain</th>
+            <th>Evidence / File</th>
+            <th>Observed Behavior</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Python</strong></td>
+            <td>Microsoft</td>
+            <td>Language Support</td>
+            <td><code>test.py</code></td>
+            <td>IntelliSense auto-complete, integrated terminal run button</td>
+          </tr>
+          <tr>
+            <td><strong>Java Pack</strong></td>
+            <td>Microsoft</td>
+            <td>Language Runtime</td>
+            <td><code>Test.java</code></td>
+            <td>JDT language server, Codelens <code>Run | Debug</code> shortcuts</td>
+          </tr>
+          <tr>
+            <td><strong>Prettier</strong></td>
+            <td>Esben Petersen</td>
+            <td>Formatter</td>
+            <td><code>sample_unformatted.html</code></td>
+            <td>AST-based auto-formatting on save (<code>settings.json</code>)</td>
+          </tr>
+          <tr>
+            <td><strong>GitLens</strong></td>
+            <td>GitKraken</td>
+            <td>VCS Telemetry</td>
+            <td><code>.git</code> repository</td>
+            <td>Inline line blame annotations, commit graph, history view</td>
+          </tr>
+          <tr>
+            <td><strong>Live Share</strong></td>
+            <td>Microsoft</td>
+            <td>Collaboration</td>
+            <td>Paired Session</td>
+            <td>Bidirectional multi-cursor coding with <code>@hkarun311-source</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION 2: COMPARISON MATRIX -->
+    <div class="section">
+      <div class="section-title"><span>02.</span> Part B: Comparative Evaluation Matrix</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Python</th>
+            <th>Java Pack</th>
+            <th>Prettier</th>
+            <th>GitLens</th>
+            <th>Live Share</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Primary Focus</strong></td>
+            <td>Syntax & Debugging</td>
+            <td>Build & Test</td>
+            <td>Code Aesthetics</td>
+            <td>VCS History</td>
+            <td>Pair Coding</td>
+          </tr>
+          <tr>
+            <td><strong>Trigger</strong></td>
+            <td><code>.py</code> open</td>
+            <td><code>.java</code> open</td>
+            <td>On Save (<code>Ctrl+S</code>)</td>
+            <td>Cursor Line Hover</td>
+            <td>Invite Link</td>
+          </tr>
+          <tr>
+            <td><strong>Typing Impact</strong></td>
+            <td>Suggestions</td>
+            <td>Type Checks</td>
+            <td>Normalized Spacing</td>
+            <td>Passive Blame</td>
+            <td>Remote Cursors</td>
+          </tr>
+          <tr>
+            <td><strong>Scope</strong></td>
+            <td>Language-specific</td>
+            <td>Language-specific</td>
+            <td>Universal (Web/JS)</td>
+            <td>Universal (Git)</td>
+            <td>Universal (Any)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION 3: REFLECTION QUESTIONS -->
+    <div class="section">
+      <div class="section-title"><span>03.</span> Part B: Model Answers to Discussion Questions</div>
+      
+      <div class="qa-box">
+        <div class="qa-title">1. Which extension changed your day-to-day typing/editing experience the most?</div>
+        <div class="qa-desc">
+          <strong>Prettier.</strong> Enabling format-on-save in VS Code completely eliminated manual indentation and formatting friction. Developers can rapidly draft logic without pausing to format braces or align tag nesting, trusting the AST formatter to clean up the code upon save.
+        </div>
+      </div>
+
+      <div class="qa-box">
+        <div class="qa-title">2. Which extension is about the code itself vs. about collaboration/history?</div>
+        <div class="qa-desc">
+          <strong>Python, Java, and Prettier</strong> are directly about code correctness, syntax trees, static analysis, and aesthetics. In contrast, <strong>GitLens and Live Share</strong> are team meta-layer tools—GitLens surfaces historical context (author, commit date, reason), while Live Share enables synchronous co-authoring across distributed engineers.
+        </div>
+      </div>
+
+      <div class="qa-box">
+        <div class="qa-title">3. Which extension would you keep enabled globally vs. language-specifically?</div>
+        <div class="qa-desc">
+          <strong>Prettier and GitLens</strong> should remain globally active across all projects because formatting standards and commit history are universal. <strong>Python and Java packs</strong> should be restricted to their respective workspaces to conserve memory and avoid heavy background language server daemons when opening non-target files.
+        </div>
+      </div>
+
+      <div class="qa-box">
+        <div class="qa-title">4. How did Live Share change the feeling of pair programming compared to screen sharing?</div>
+        <div class="qa-desc">
+          Screen sharing is passive and asymmetric—only the presenter controls navigation while the partner watches. <strong>Live Share</strong> empowers both engineers with independent cursor focus, simultaneous multi-file editing, and shared terminals, converting a passive spectator experience into an active engineering partnership.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: CHEAT SHEET -->
+    <div class="section">
+      <div class="section-title"><span>04.</span> VS Code Extension Tour Cheat Sheet</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Extension / Action</th>
+            <th>Shortcut / Command</th>
+            <th>Functionality</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Open Extensions View</strong></td>
+            <td><code>Ctrl + Shift + X</code></td>
+            <td>Search and manage installed extensions</td>
+          </tr>
+          <tr>
+            <td><strong>Format Document</strong></td>
+            <td><code>Shift + Alt + F</code></td>
+            <td>Reformats the entire file using Prettier standards</td>
+          </tr>
+          <tr>
+            <td><strong>Run Python Script</strong></td>
+            <td><code>Run ▷</code> or <code>Ctrl + F5</code></td>
+            <td>Executes the active python file in the integrated terminal</td>
+          </tr>
+          <tr>
+            <td><strong>Java Run Codelens</strong></td>
+            <td>Click <code>Run</code> above <code>main()</code></td>
+            <td>Compiles and runs the Java class via JDT LS</td>
+          </tr>
+          <tr>
+            <td><strong>GitLens Inline Blame</strong></td>
+            <td>End of Line Cursor</td>
+            <td>Shows last commit author, time, and hash</td>
+          </tr>
+          <tr>
+            <td><strong>Live Share Start</strong></td>
+            <td>Status Bar ➔ Live Share ➔ Start</td>
+            <td>Generates collaborative session invite link</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <button class="print-btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+</body>
+</html>
